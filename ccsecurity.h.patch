@@ -1,0 +1,37 @@
+diff --git a/include/linux/ccsecurity.h b/include/linux/ccsecurity.h
+index a33fbaa..3a2b611 100644
+--- a/include/linux/ccsecurity.h
++++ b/include/linux/ccsecurity.h
+@@ -46,6 +46,10 @@ int search_binary_handler(struct linux_binprm *bprm, struct pt_regs *regs);
+ #include <linux/uidgid.h>
+ #endif
+ 
++#ifdef CONFIG_CCSECURITY_ANDROID
++#include "../../drivers/staging/android/binder.h"
++#endif
++
+ /* For exporting variables and functions. */
+ struct ccsecurity_exports {
+ 	void (*load_policy) (const char *filename);
+@@ -123,6 +127,7 @@ struct ccsecurity_operations {
+ 	int (*kill_permission) (pid_t pid, int sig);
+ 	int (*tgkill_permission) (pid_t tgid, pid_t pid, int sig);
+ 	int (*tkill_permission) (pid_t pid, int sig);
++	int (*android_binder_permission) (pid_t pid, struct binder_transaction_data *tr); 
+ 	int (*socket_create_permission) (int family, int type, int protocol);
+ 	int (*socket_listen_permission) (struct socket *sock);
+ 	int (*socket_connect_permission) (struct socket *sock,
+@@ -891,6 +896,13 @@ static inline int ccs_tgsigqueue_permission(pid_t tgid, pid_t pid, int sig)
+ 
+ #endif
+ 
++#ifdef CONFIG_CCSECURITY_ANDROID
++static inline int ccs_android_binder_permission(pid_t pid, struct binder_transaction_data *tr) {
++	int (*func) (pid_t, struct binder_transaction_data *) = ccsecurity_ops.android_binder_permission;
++	return func ? func(pid, tr) : 0;
++}
++#endif
++
+ /* Index numbers for Capability Controls. */
+ enum ccs_capability_acl_index {
+ 	/* socket(PF_ROUTE, *, *)                                      */

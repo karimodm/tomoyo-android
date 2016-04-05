@@ -1,0 +1,34 @@
+node {
+	text-background-mode: plain;
+	fill-mode: dyn-plain;
+	fill-color: green, red;
+}
+
+node.app {
+	size:25px;
+	text-background-color: green;
+} 
+
+node.service {
+	size:10px;
+	text-background-color: yellow;
+}
+
+edge {
+	text-background-mode: plain;
+	text-background-color: #ef9200; 
+	fill-mode: dyn-plain;
+	fill-color: black, red;
+	size-mode: dyn-size;
+	size: 1px;
+}
+
+edge.intree {
+	size: 3px;
+	fill-color: black;
+}
+
+edge.notintree {
+	size: 1px;
+	fill-color: gray;
+}

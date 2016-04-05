@@ -1,0 +1,27 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8x]{inputenc}
+
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage{listings}
+\usepackage{verbatim}
+
+\lstloadlanguages{Ruby}
+\lstset{%
+basicstyle=\ttfamily\color{black},
+commentstyle = \ttfamily\color{red},
+keywordstyle=\ttfamily\color{blue},
+stringstyle=\color{orange}}
+
+
+\begin{document}
+
+\scriptsize 
+\lstinputlisting[language=ruby]{actuator.rb}
+%\begin{comment}
+\lstinputlisting[language=java]{src/androidtomoyo/AndroidGraph.java}
+\lstinputlisting[language=java]{src/androidtomoyo/HTTPSourceExtended.java}
+\lstinputlisting[language=java]{src/androidtomoyo/Main.java}
+%\end{comment}
+
+\end{document}
